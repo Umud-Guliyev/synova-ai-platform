@@ -37,7 +37,8 @@ export function authErrorMessage(err: AuthErrorLike, mode: "login" | "register" 
     return "This password is too weak or has appeared in a data breach. Choose a longer, unique password.";
   if (code === "email_address_invalid" || msg.includes("invalid email") || msg.includes("unable to validate email")) return "Enter a valid email address.";
   if (status === 429 || code === "over_request_rate_limit") return "Too many attempts. Please wait a minute and try again.";
-  if (code === "anonymous_provider_disabled") return "Demo access is currently disabled. Please log in or register instead.";
+  if (code === "anonymous_provider_disabled")
+    return "Demo access is disabled in Supabase. Enable Anonymous Sign-Ins in Authentication settings, or log in or register instead.";
   return mode === "register" ? "Registration failed. Please try again." : mode === "demo" ? "Could not start the demo. Please try again." : "Login failed. Please try again.";
 }
 

@@ -93,9 +93,24 @@ Use the local URL printed by Vite to open the application.
 
 ### Environment Variables
 
-Configure the environment variables required by your project before running or deploying it.
+Copy `.env.example` to `.env.local` and set the Supabase project URL and publishable key. The `VITE_` variables are used by the browser; the unprefixed variables are used by the server. Never put a secret key in a `VITE_` variable.
 
-Do not commit API keys, access tokens, private credentials, or production secrets. If the project uses a separate ML API, configure its URL using the existing application's intended environment configuration.
+For local development against the cloud project, enable **Authentication → Sign In / Providers → Anonymous Sign-Ins** in Supabase. This is required by the Explore Demo button. When running a local Supabase stack instead, `supabase/config.toml` enables anonymous sign-ins for that stack.
+
+In **Authentication → URL Configuration**, set the Site URL to the deployed app URL and add the exact local and Vercel app URLs to Additional Redirect URLs. Include each Vercel preview hostname you intend to use; email confirmation redirects to the current app origin.
+
+### Vercel Deployment
+
+Import the repository into Vercel and use `npm run build` as the build command. Nitro detects Vercel during deployment, so no Vercel-specific adapter or `vercel.json` is required for this app.
+
+Add these variables in Vercel for **Production**, **Preview**, and **Development** as needed:
+
+* `VITE_SUPABASE_URL`
+* `VITE_SUPABASE_PUBLISHABLE_KEY`
+* `SUPABASE_URL`
+* `SUPABASE_PUBLISHABLE_KEY`
+
+If a server-only admin operation is added, also set `SUPABASE_SERVICE_ROLE_KEY` to the Supabase secret key. Keep it server-side and never prefix it with `VITE_`. Do not commit `.env.local` or other credential files.
 
 ## Project Structure
 

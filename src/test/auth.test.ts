@@ -44,8 +44,8 @@ describe("demo access", () => {
     expect(isDemoUser({ id: "u", is_anonymous: false })).toBe(false);
     expect(isDemoUser(null)).toBe(false);
   });
-  it("explains when demo access is disabled", () => {
-    expect(authErrorMessage({ code: "anonymous_provider_disabled", status: 422 }, "demo")).toMatch(/disabled/);
+  it("explains how to enable demo access when anonymous sign-ins are disabled", () => {
+    expect(authErrorMessage({ code: "anonymous_provider_disabled", status: 422 }, "demo")).toMatch(/enable Anonymous Sign-Ins/i);
   });
 });
 
